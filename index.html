@@ -250,7 +250,7 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
     </div>
 
     <figure class="flowfig">
-      <svg class="flow" id="flow" viewBox="0 0 470 300" role="img" aria-label="Genomic, clinical and environmental data combined into one multimodal patient representation">
+      <svg class="flow" id="flow" viewBox="0 0 470 300" role="img" aria-label="Genomic and clinical data combined by a VAE into one binary patient representation">
         <circle class="ring" cx="330" cy="150" r="128"/>
         <circle class="star" cx="330.0" cy="22.0" r="3.2"/><circle class="star" cx="385.5" cy="34.7" r="3.2"/><circle class="star" cx="430.1" cy="70.2" r="3.2"/><circle class="star" cx="454.8" cy="121.5" r="3.2"/><circle class="star" cx="454.8" cy="178.5" r="3.2"/><circle class="star" cx="430.1" cy="229.8" r="3.2"/><circle class="star" cx="385.5" cy="265.3" r="3.2"/><circle class="star" cx="330.0" cy="278.0" r="3.2"/><circle class="star" cx="274.5" cy="265.3" r="3.2"/><circle class="star" cx="229.9" cy="229.8" r="3.2"/><circle class="star" cx="205.2" cy="178.5" r="3.2"/><circle class="star" cx="205.2" cy="121.5" r="3.2"/><circle class="star" cx="229.9" cy="70.2" r="3.2"/><circle class="star" cx="274.5" cy="34.7" r="3.2"/>
         <path class="wire" d="M188 58 C 228 58, 230 130, 270 140"/><path class="wire" d="M188 150 L 270 150"/><path class="wire" d="M188 242 C 228 242, 230 170, 270 160"/>
@@ -261,8 +261,8 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
           <polyline class="g2" points="24,152 34,152 38,142 43,162 48,136 52,152 64,152"/>
           <text class="lbl" x="76" y="147">Clinical</text><text class="sub" x="76" y="162">EHR · imaging</text></g>
         <g><rect class="node" x="10" y="214" width="178" height="56" rx="10"/>
-          <path class="g3" d="M24 236 q 7 -6 14 0 t 14 0 t 12 0 M24 246 q 7 -6 14 0 t 14 0 t 12 0 M24 256 q 7 -6 14 0 t 14 0 t 12 0"/>
-          <text class="lbl" x="76" y="239">Environmental</text><text class="sub" x="76" y="254">exposome · lifestyle</text></g>
+          <path class="g3" d="M24 232 L40 240 L40 252 L24 260 Z M64 232 L48 240 L48 252 L64 260 Z" stroke-linejoin="round"/><circle class="d3" cx="44" cy="246" r="2.2"/>
+          <text class="lbl" x="76" y="239">VAE</text><text class="sub" x="76" y="254">encoder · latent · decoder</text></g>
         <rect class="hub" x="270" y="102" width="122" height="96" rx="14"/>
         <text class="lbl" x="283" y="128">Patient</text><text class="lbl" x="283" y="145">representation</text>
         <text class="sub" x="283" y="160">z ∈ {0,1}⁸</text>
