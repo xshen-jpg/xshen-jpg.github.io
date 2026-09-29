@@ -97,12 +97,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .hero { position: relative; overflow: hidden; }
 .cellfield { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 .hero .page { position: relative; z-index: 1; }
-.helix { display: block; position: relative; z-index: 1; width: 100%; height: 60px; }
 .helix .s1 { stroke: var(--accent); stroke-opacity: .55; fill: none; stroke-width: 1.2; }
 .helix .s2 { stroke: var(--c3); stroke-opacity: .55; fill: none; stroke-width: 1.2; }
 .helix .rung { stroke: var(--rule); stroke-width: 1; }
 .helix .base { stroke: var(--rule); stroke-width: 1; }
-.mast { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; align-items: end; padding-block: 88px 48px; }
+.mast { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; align-items: center; padding-block: 80px 72px; }
 .mast h1, .mast .tagline, .mast .affil, .mast .eyebrow { text-shadow: 0 0 18px var(--bg), 0 0 6px var(--bg); }
 @media (max-width: 860px) { .mast { grid-template-columns: minmax(0,1fr); gap: 40px; padding-block: 48px 40px; } }
 .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
@@ -179,24 +178,7 @@ p { margin: 0; max-width: 66ch; }
 
 footer { padding-block: 36px 56px; font-family: var(--f-mono); font-size: 11.5px; color: var(--faint); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
-/* MLCARE band */
-.net { position: relative; overflow: hidden; background: var(--band); color: var(--band-ink); border-bottom: 1px solid var(--rule);
-  background-image: radial-gradient(700px 360px at 85% 50%, var(--glow), transparent 70%), linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-  background-size: auto, 44px 44px, 44px 44px; background-position: 0 0, -1px -1px, -1px -1px; }
-.net::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--band) 0%, color-mix(in srgb, var(--band) 70%, transparent) 45%, transparent 100%); pointer-events: none; }
-.net-in { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; padding-block: 72px; scroll-margin-top: 60px; }
-@media (max-width: 860px) { .net-in { grid-template-columns: minmax(0,1fr); gap: 36px; padding-block: 48px; } }
-.net .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.eu { width: 30px; height: 20px; flex: none; border-radius: 2px; }
-.net h2.big { font-family: var(--f-name); font-weight: 700; font-size: clamp(2.6rem, 6vw, 4rem); letter-spacing: -.04em; line-height: 1; margin: 0; }
-.acro { font-family: var(--f-display); font-size: 1.2rem; line-height: 1.45; margin: 14px 0 0; color: var(--muted); max-width: 34ch; }
-.acro b { color: var(--accent); font-weight: 500; }
-.net p.desc { margin-top: 20px; font-size: 15.5px; max-width: 54ch; }
-.facts { display: flex; flex-wrap: wrap; gap: 14px 36px; margin: 26px 0 0; padding: 0; list-style: none; }
-.facts li { display: flex; flex-direction: column; }
-.facts .n { font-family: var(--f-name); font-weight: 600; font-size: 1.9rem; letter-spacing: -.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.facts .l { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.net .more { display: inline-block; margin-top: 24px; font-family: var(--f-mono); font-size: 13px; }
+.eu { width: 27px; height: 18px; flex: none; border-radius: 2px; }
 .flow { width: 100%; height: auto; display: block; overflow: visible; }
 .flow .ring { fill: none; stroke: var(--rule); stroke-dasharray: 2 5; }
 .flow .star { fill: var(--accent); opacity: .35; }
@@ -215,6 +197,17 @@ footer { padding-block: 36px 56px; font-family: var(--f-mono); font-size: 11.5px
 footer { flex-direction: column; }
 footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
+.msca { display: flex; align-items: flex-start; gap: 12px; margin: 18px 0 0; font-size: 14.5px; line-height: 1.5; }
+.msca .eu { margin-top: 2px; }
+.msca .acro { display: block; font-family: var(--f-mono); font-size: 10.5px; color: var(--faint); letter-spacing: 0; margin-top: 2px; }
+.msca .acro b { color: var(--accent); font-weight: 500; }
+.flowfig { margin: 0; background: color-mix(in srgb, var(--surface) 70%, transparent); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 20px 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 24px 60px -32px var(--glow); backdrop-filter: blur(4px); }
+.lower { position: relative; overflow: hidden; border-top: 1px solid var(--rule); }
+.lower > .page { position: relative; z-index: 1; }
+.lower .cellfield { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.lower .helix { position: absolute; top: 0; left: max(10px, calc(50% - 610px)); width: 48px; height: 100%; z-index: 0; pointer-events: none; }
+@media (max-width: 1220px) { .lower .helix { opacity: .45; } }
+
 @media (prefers-reduced-motion: reduce) { .cell, a { transition: none; } }
 </style>
 </head>
@@ -223,7 +216,6 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
   <div class="page">
     <a class="mark" href="#top">X<i>·</i>S</a>
     <nav class="nav" aria-label="Sections">
-      <a href="#mlcare">MLCARE</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#education">Education</a>
@@ -233,19 +225,19 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
 </header>
 
 <div class="hero" id="top">
-  <canvas class="cellfield" id="cellfield" aria-hidden="true"></canvas>
   <div class="page">
   <section class="mast">
     <div>
       <div class="who">
         <img class="portrait" src="assets/portrait.jpg" alt="Portrait of Xi Shen">
         <div>
-          <p class="eyebrow">MSCA Doctoral Candidate · MLCARE · UC3M</p>
+          <p class="eyebrow">PhD candidate · UC3M</p>
           <h1>Xi <em>Shen</em></h1>
         </div>
       </div>
-      <p class="tagline">Discrete latent variables, error-correcting codes, and generative models for single-cell biology.</p>
+      <p class="tagline">Discrete latent variables, error-correcting codes, and generative models for single-cell biology and personalized medicine.</p>
       <p class="affil">Machine Learning &amp; Signal Processing Group<br>Dept. of Signal Theory and Communications, Universidad Carlos III de Madrid</p>
+      <p class="msca"><svg class="eu" viewBox="0 0 30 20" aria-label="Flag of the European Union" role="img"><rect width="30" height="20" fill="var(--eu-blue)"/><circle cx="15.00" cy="4.00" r="0.9" fill="var(--eu-gold)"/><circle cx="18.00" cy="4.80" r="0.9" fill="var(--eu-gold)"/><circle cx="20.20" cy="7.00" r="0.9" fill="var(--eu-gold)"/><circle cx="21.00" cy="10.00" r="0.9" fill="var(--eu-gold)"/><circle cx="20.20" cy="13.00" r="0.9" fill="var(--eu-gold)"/><circle cx="18.00" cy="15.20" r="0.9" fill="var(--eu-gold)"/><circle cx="15.00" cy="16.00" r="0.9" fill="var(--eu-gold)"/><circle cx="12.00" cy="15.20" r="0.9" fill="var(--eu-gold)"/><circle cx="9.80" cy="13.00" r="0.9" fill="var(--eu-gold)"/><circle cx="9.00" cy="10.00" r="0.9" fill="var(--eu-gold)"/><circle cx="9.80" cy="7.00" r="0.9" fill="var(--eu-gold)"/><circle cx="12.00" cy="4.80" r="0.9" fill="var(--eu-gold)"/></svg><span>Marie Skłodowska-Curie doctoral candidate in <a href="https://mlcare.webs.tsc.uc3m.es/">MLCARE</a><span class="acro"><b>M</b>achine <b>L</b>earning <b>C</b>omputational <b>A</b>dvancements for pe<b>R</b>sonalized m<b>E</b>dicine</span></span></p>
       <div class="contact">
         <span class="email"><code id="mail">xshen@ing.uc3m.es</code><button type="button" id="copyBtn">Copy</button></span>
         <span class="links">
@@ -257,38 +249,7 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
       </div>
     </div>
 
-    <figure class="figure" aria-label="Animated repetition code: eight information bits, each repeated three times">
-      <div class="row">
-        <span class="lbl">m ∈ {0,1}⁸</span>
-        <div class="cells info" id="info"></div>
-      </div>
-      <div class="row">
-        <span class="lbl">c = rep₃(m)</span>
-        <div class="cells coded" id="coded"></div>
-      </div>
-      <figcaption class="cap"><span>K = 8 info bits → N = 24 coded bits</span><span><b>■</b> flipped bit, fixed by majority vote</span></figcaption>
-    </figure>
-  </section>
-  </div>
-  <svg class="helix" id="helix" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"></svg>
-</div>
-
-
-<section class="net" aria-labelledby="mlcare-title">
-  <div class="page net-in" id="mlcare">
-    <div>
-      <p class="eyebrow"><svg class="eu" viewBox="0 0 30 20" aria-label="Flag of the European Union" role="img"><rect width="30" height="20" fill="var(--eu-blue)"/><circle cx="15.00" cy="4.00" r="0.9" fill="var(--eu-gold)"/><circle cx="18.00" cy="4.80" r="0.9" fill="var(--eu-gold)"/><circle cx="20.20" cy="7.00" r="0.9" fill="var(--eu-gold)"/><circle cx="21.00" cy="10.00" r="0.9" fill="var(--eu-gold)"/><circle cx="20.20" cy="13.00" r="0.9" fill="var(--eu-gold)"/><circle cx="18.00" cy="15.20" r="0.9" fill="var(--eu-gold)"/><circle cx="15.00" cy="16.00" r="0.9" fill="var(--eu-gold)"/><circle cx="12.00" cy="15.20" r="0.9" fill="var(--eu-gold)"/><circle cx="9.80" cy="13.00" r="0.9" fill="var(--eu-gold)"/><circle cx="9.00" cy="10.00" r="0.9" fill="var(--eu-gold)"/><circle cx="9.80" cy="7.00" r="0.9" fill="var(--eu-gold)"/><circle cx="12.00" cy="4.80" r="0.9" fill="var(--eu-gold)"/></svg>Marie Skłodowska-Curie Doctoral Network</p>
-      <h2 class="big" id="mlcare-title">MLCARE</h2>
-      <p class="acro"><b>M</b>achine <b>L</b>earning <b>C</b>omputational <b>A</b>dvancements for pe<b>R</b>sonalized m<b>E</b>dicine</p>
-      <p class="desc">My PhD is part of MLCARE, a Horizon Europe doctoral network coordinated at UC3M. Its doctoral candidates build AI that fuses genomic, clinical and environmental data into multimodal patient representations, with a focus on foundation models, generative methods, and AI that clinicians can trust and explain.</p>
-      <ul class="facts">
-        <li><span class="n">14</span><span class="l">Doctoral candidates</span></li>
-        <li><span class="n">12</span><span class="l">European institutions</span></li>
-        <li><span class="n">UC3M</span><span class="l">Coordinator</span></li>
-      </ul>
-      <a class="more" href="https://mlcare.webs.tsc.uc3m.es/">mlcare.webs.tsc.uc3m.es ↗</a>
-    </div>
-    <div>
+    <figure class="flowfig">
       <svg class="flow" id="flow" viewBox="0 0 470 300" role="img" aria-label="Genomic, clinical and environmental data combined into one multimodal patient representation">
         <circle class="ring" cx="330" cy="150" r="128"/>
         <circle class="star" cx="330.0" cy="22.0" r="3.2"/><circle class="star" cx="385.5" cy="34.7" r="3.2"/><circle class="star" cx="430.1" cy="70.2" r="3.2"/><circle class="star" cx="454.8" cy="121.5" r="3.2"/><circle class="star" cx="454.8" cy="178.5" r="3.2"/><circle class="star" cx="430.1" cy="229.8" r="3.2"/><circle class="star" cx="385.5" cy="265.3" r="3.2"/><circle class="star" cx="330.0" cy="278.0" r="3.2"/><circle class="star" cx="274.5" cy="265.3" r="3.2"/><circle class="star" cx="229.9" cy="229.8" r="3.2"/><circle class="star" cx="205.2" cy="178.5" r="3.2"/><circle class="star" cx="205.2" cy="121.5" r="3.2"/><circle class="star" cx="229.9" cy="70.2" r="3.2"/><circle class="star" cx="274.5" cy="34.7" r="3.2"/>
@@ -312,17 +273,24 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
         <circle class="d2" r="3"><animateMotion dur="2.2s" begin=".6s" repeatCount="indefinite" path="M188 150 L 270 150"/></circle>
         <circle class="d3" r="3"><animateMotion dur="3.1s" begin="1.1s" repeatCount="indefinite" path="M188 242 C 228 242, 230 170, 270 160"/></circle>
       </svg>
-    </div>
+      <figcaption class="cap"><span>multimodal data → binary patient code</span><span>MLCARE · precision medicine</span></figcaption>
+    </figure>
+  </section>
   </div>
-</section>
+</div>
 
+
+
+<div class="lower">
+  <canvas class="cellfield" id="cellfield" aria-hidden="true"></canvas>
+  <svg class="helix" id="helix" aria-hidden="true"></svg>
 <div class="page">
   <main class="ledger">
     <section class="sec" id="about">
       <h2>About</h2>
       <div class="body">
         <p class="lede">I build variational autoencoders with binary latent spaces and use error-correcting codes to make their inference sharper.</p>
-        <p>I am a Marie Skłodowska-Curie doctoral candidate in the <a href="#mlcare">MLCARE</a> network, doing my PhD in Machine Learning for Precision Medicine at Universidad Carlos III de Madrid with Prof. <a href="#">Pablo M. Olmos</a>. I apply coded binary bottlenecks to single-cell generative models such as scVI and MrVI, aiming for latent codes whose individual bits line up with cell lineages, states and tissue niches.</p>
+        <p>I am a Marie Skłodowska-Curie doctoral candidate in the <a href="https://mlcare.webs.tsc.uc3m.es/">MLCARE</a> network, doing my PhD in Machine Learning for Precision Medicine at Universidad Carlos III de Madrid with Prof. <a href="#">Pablo M. Olmos</a>. I apply coded binary bottlenecks to single-cell generative models such as scVI and MrVI, aiming for latent codes whose individual bits line up with cell lineages, states and tissue niches.</p>
         <p>Before Madrid, I earned an MSc in Bioinformatics at the University of Copenhagen, working with Prof. Anders Krogh on generative decoders for incomplete multi-modal clinical data. My first degree was in Pharmaceutical Engineering.</p>
         <ul class="chips">
           <li>Discrete VAEs</li>
@@ -435,162 +403,96 @@ footer .row { display: flex; justify-content: space-between; gap: 12px; flex-wra
 
   <footer><div class="ack"><svg class="eu" viewBox="0 0 30 20" aria-label="Flag of the European Union" role="img"><rect width="30" height="20" fill="var(--eu-blue)"/><circle cx="15.00" cy="4.00" r="0.9" fill="var(--eu-gold)"/><circle cx="18.00" cy="4.80" r="0.9" fill="var(--eu-gold)"/><circle cx="20.20" cy="7.00" r="0.9" fill="var(--eu-gold)"/><circle cx="21.00" cy="10.00" r="0.9" fill="var(--eu-gold)"/><circle cx="20.20" cy="13.00" r="0.9" fill="var(--eu-gold)"/><circle cx="18.00" cy="15.20" r="0.9" fill="var(--eu-gold)"/><circle cx="15.00" cy="16.00" r="0.9" fill="var(--eu-gold)"/><circle cx="12.00" cy="15.20" r="0.9" fill="var(--eu-gold)"/><circle cx="9.80" cy="13.00" r="0.9" fill="var(--eu-gold)"/><circle cx="9.00" cy="10.00" r="0.9" fill="var(--eu-gold)"/><circle cx="9.80" cy="7.00" r="0.9" fill="var(--eu-gold)"/><circle cx="12.00" cy="4.80" r="0.9" fill="var(--eu-gold)"/></svg><span>This PhD is funded by the European Union's Horizon Europe research and innovation programme under the Marie Skłodowska-Curie grant agreement No 101226456 (MLCARE).</span></div><div class="row"><span>Xi Shen · Madrid</span><span>Updated September 2026</span></div></footer>
 </div>
-
-<script>
-(function () {
-  const K = 8, R = 3;
-  const infoEl = document.getElementById('info');
-  const codedEl = document.getElementById('coded');
-  const init = [1,0,1,1,0,0,1,0];
-  const info = [], coded = [];
-  for (let i = 0; i < K; i++) {
-    const c = document.createElement('span'); c.className = 'cell' + (init[i] ? ' on' : '');
-    infoEl.appendChild(c); info.push(c);
-    const g = document.createElement('span'); g.className = 'grp';
-    const copies = [];
-    for (let r = 0; r < R; r++) { const s = document.createElement('span'); s.className = 'cell' + (init[i] ? ' on' : ''); g.appendChild(s); copies.push(s); }
-    codedEl.appendChild(g); coded.push(copies);
-  }
-  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (still) document.querySelectorAll('#flow animateMotion').forEach(a => a.parentNode.remove());
-  let tick = 0;
-  if (!still) setInterval(() => {
-    tick++;
-    if (tick % 3 === 0) {
-      // channel noise: flip one coded copy, then restore it (majority vote)
-      const i = Math.floor(Math.random() * K), r = Math.floor(Math.random() * R);
-      const s = coded[i][r];
-      s.classList.toggle('on'); s.classList.add('noise');
-      setTimeout(() => { s.classList.toggle('on'); s.classList.remove('noise'); }, 1300);
-    } else {
-      // new message bit propagates to its three copies
-      const i = Math.floor(Math.random() * K);
-      info[i].classList.toggle('on');
-      coded[i].forEach((s, r) => setTimeout(() => s.classList.toggle('on'), 220 + r * 140));
-    }
-  }, 1700);
-
-  const btn = document.getElementById('copyBtn');
-  const mail = document.getElementById('mail');
-  btn.addEventListener('click', () => {
-    const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1600); };
-    const fallback = () => { const rg = document.createRange(); rg.selectNodeContents(mail); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(rg); btn.textContent = 'Selected'; };
-    try { navigator.clipboard.writeText(mail.textContent).then(done, fallback); } catch (e) { fallback(); }
-  });
-})();
-</script>
+</div>
 
 <script>
 (function () {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  if (reduce) document.querySelectorAll('#flow animateMotion').forEach(a => a.parentNode.remove());
 
-  /* ---------- DNA helix band ---------- */
+  /* copy e-mail */
+  const btn = document.getElementById('copyBtn'), mail = document.getElementById('mail');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(mail); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'Selected'; };
+    try { navigator.clipboard.writeText(mail.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const lower = document.querySelector('.lower');
+
+  /* vertical DNA helix down the left margin */
   function drawHelix() {
     const svg = document.getElementById('helix');
-    const W = 1200, H = 60, mid = 30, amp = 16, period = 120;
+    const H = Math.max(600, lower.scrollHeight), W = 48, mid = 24, amp = 15, period = 150;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     let a = '', b = '', rungs = '';
-    for (let x = 0; x <= W; x += 4) {
-      const y1 = mid + amp * Math.sin((x / period) * 2 * Math.PI);
-      const y2 = mid - amp * Math.sin((x / period) * 2 * Math.PI);
-      a += (x ? 'L' : 'M') + x + ' ' + y1.toFixed(1);
-      b += (x ? 'L' : 'M') + x + ' ' + y2.toFixed(1);
+    for (let y = 0; y <= H; y += 4) {
+      const t = Math.sin((y / period) * 2 * Math.PI);
+      a += (y ? 'L' : 'M') + (mid + amp * t).toFixed(1) + ' ' + y;
+      b += (y ? 'L' : 'M') + (mid - amp * t).toFixed(1) + ' ' + y;
     }
-    for (let x = period / 8; x < W; x += period / 4) {
-      const y1 = mid + amp * Math.sin((x / period) * 2 * Math.PI);
-      const y2 = mid - amp * Math.sin((x / period) * 2 * Math.PI);
-      rungs += '<line class="rung" x1="' + x + '" y1="' + y1.toFixed(1) + '" x2="' + x + '" y2="' + y2.toFixed(1) + '"/>';
+    for (let y = period / 8; y < H; y += period / 4) {
+      const t = Math.sin((y / period) * 2 * Math.PI);
+      rungs += '<line x1="' + (mid + amp * t).toFixed(1) + '" y1="' + y + '" x2="' + (mid - amp * t).toFixed(1) + '" y2="' + y + '" stroke="var(--rule)" stroke-width="1"/>';
     }
-    svg.innerHTML = '<line class="base" x1="0" y1="59.5" x2="1200" y2="59.5"/>' + rungs +
-      '<path class="s1" d="' + a + '"/><path class="s2" d="' + b + '"/>';
+    svg.innerHTML = rungs + '<path d="' + a + '" fill="none" stroke="var(--accent)" stroke-opacity=".4" stroke-width="1.2"/>' +
+      '<path d="' + b + '" fill="none" stroke="var(--c3)" stroke-opacity=".4" stroke-width="1.2"/>';
   }
-  drawHelix();
 
-  /* ---------- single-cell latent space (UMAP-like) ---------- */
-  const cv = document.getElementById('cellfield');
-  const ctx = cv.getContext('2d');
+  /* single-cell clusters (UMAP-like) along the right margin */
+  const cv = document.getElementById('cellfield'), ctx = cv.getContext('2d');
   let seed = 7;
   const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
-
-  // cluster centres in unit coords; kept mostly right and low so the name stays clear
   const clusters = [
-    { x: .62, y: .20, sx: .045, sy: .06, n: 70, col: '--accent', lbl: 'CD4 T' },
-    { x: .72, y: .30, sx: .04,  sy: .04, n: 55, col: '--accent', lbl: 'CD8 T' },
-    { x: .90, y: .18, sx: .035, sy: .05, n: 45, col: '--c3',     lbl: 'B' },
-    { x: .95, y: .58, sx: .03,  sy: .07, n: 55, col: '--c4',     lbl: 'CD14 Mono' },
-    { x: .84, y: .86, sx: .04,  sy: .035,n: 35, col: '--c4',     lbl: 'FCGR3A Mono' },
-    { x: .56, y: .90, sx: .035, sy: .03, n: 30, col: '--c3',     lbl: 'NK' },
-    { x: .08, y: .88, sx: .04,  sy: .03, n: 30, col: '--noise',  lbl: 'DC' },
-    { x: .30, y: .97, sx: .03,  sy: .02, n: 18, col: '--faint',  lbl: 'Platelet' }
+    { x: .93, y: .06, s: 34, n: 55, col: '--accent', lbl: 'CD4 T' },
+    { x: .88, y: .16, s: 26, n: 40, col: '--accent', lbl: 'CD8 T' },
+    { x: .95, y: .30, s: 26, n: 40, col: '--c3', lbl: 'B' },
+    { x: .90, y: .46, s: 32, n: 50, col: '--c4', lbl: 'CD14 Mono' },
+    { x: .95, y: .58, s: 22, n: 28, col: '--c4', lbl: 'FCGR3A Mono' },
+    { x: .89, y: .72, s: 24, n: 30, col: '--c3', lbl: 'NK' },
+    { x: .94, y: .86, s: 20, n: 22, col: '--noise', lbl: 'DC' },
+    { x: .88, y: .95, s: 14, n: 14, col: '--faint', lbl: 'Platelet' }
   ];
   const pts = [];
-  clusters.forEach((c, ci) => {
-    for (let i = 0; i < c.n; i++) pts.push({ ci, ux: c.x + gauss() * c.sx, uy: c.y + gauss() * c.sy, ph: rnd() * 6.28, r: 1 + rnd() * 1.4 });
-  });
-  // sparse kNN edges within each cluster
+  clusters.forEach((c, ci) => { for (let i = 0; i < c.n; i++) pts.push({ ci, gx: gauss() * c.s, gy: gauss() * c.s * 1.2, ph: rnd() * 6.28, r: 1 + rnd() * 1.3 }); });
   const edges = [];
   clusters.forEach((c, ci) => {
     const mine = pts.map((p, i) => [p, i]).filter(([p]) => p.ci === ci);
-    mine.forEach(([p, i], k) => {
-      if (k % 3) return;
-      let best = -1, bd = 1e9;
-      mine.forEach(([q, j]) => { if (j === i) return; const d = (p.ux - q.ux) ** 2 + (p.uy - q.uy) ** 2; if (d < bd) { bd = d; best = j; } });
-      if (best >= 0) edges.push([i, best]);
-    });
+    mine.forEach(([p, i], k) => { if (k % 3) return; let best = -1, bd = 1e9;
+      mine.forEach(([q, j]) => { if (j === i) return; const d = (p.gx - q.gx) ** 2 + (p.gy - q.gy) ** 2; if (d < bd) { bd = d; best = j; } });
+      if (best >= 0) edges.push([i, best]); });
   });
-
-  let W = 0, H = 0, colors = {};
+  let W = 0, H = 0, col = {};
   function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const r = cv.getBoundingClientRect();
-    W = r.width; H = r.height;
-    cv.width = W * dpr; cv.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2), r = cv.getBoundingClientRect();
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  function readColors() {
-    colors = {};
-    ['--accent', '--c3', '--c4', '--noise', '--faint', '--rule', '--muted'].forEach(k => colors[k] = css(k));
-  }
+  function readColors() { ['--accent','--c3','--c4','--noise','--faint','--muted'].forEach(k => col[k] = css(k)); }
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
-    const narrow = W < 700;
-    const pos = (p) => {
-      const dx = reduce ? 0 : Math.sin(t / 2400 + p.ph) * 2.2;
-      const dy = reduce ? 0 : Math.cos(t / 2900 + p.ph) * 2.2;
-      return [p.ux * W + dx, p.uy * H + dy];
-    };
-    ctx.lineWidth = 0.6;
-    ctx.globalAlpha = narrow ? .18 : .28;
-    edges.forEach(([i, j]) => {
-      const a = pts[i], b = pts[j];
-      const [x1, y1] = pos(a), [x2, y2] = pos(b);
-      ctx.strokeStyle = colors[clusters[a.ci].col];
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-    });
-    ctx.globalAlpha = narrow ? .28 : .45;
-    pts.forEach(p => {
-      const [x, y] = pos(p);
-      ctx.fillStyle = colors[clusters[p.ci].col];
-      ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.2832); ctx.fill();
-    });
-    if (!narrow) {
-      ctx.globalAlpha = .75;
-      ctx.fillStyle = colors['--muted'];
-      ctx.font = '10px "JetBrains Mono", ui-monospace, monospace';
-      clusters.forEach(c => {
-        const x = Math.min(c.x * W + c.sx * W * 1.6, W - 90);
-        ctx.fillText(c.lbl, x, c.y * H - c.sy * H * 1.2);
-      });
-      ctx.fillStyle = colors['--faint'];
-      ctx.fillText('UMAP 1 →', W - 96, H - 10);
+    const narrow = W < 900;
+    const cx = (c) => narrow ? W - 30 : Math.max(c.x * W, (W + 1080) / 2 + 30);
+    const pos = (p) => { const c = clusters[p.ci];
+      return [cx(c) + p.gx + (reduce ? 0 : Math.sin(t / 2400 + p.ph) * 2), c.y * H + p.gy + (reduce ? 0 : Math.cos(t / 2900 + p.ph) * 2)]; };
+    ctx.lineWidth = .6; ctx.globalAlpha = narrow ? .12 : .25;
+    edges.forEach(([i, j]) => { const [x1, y1] = pos(pts[i]), [x2, y2] = pos(pts[j]);
+      ctx.strokeStyle = col[clusters[pts[i].ci].col]; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); });
+    ctx.globalAlpha = narrow ? .2 : .42;
+    pts.forEach(p => { const [x, y] = pos(p); ctx.fillStyle = col[clusters[p.ci].col]; ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.2832); ctx.fill(); });
+    if (!narrow && W > 1300) {
+      ctx.globalAlpha = .7; ctx.fillStyle = col['--muted']; ctx.font = '10px "JetBrains Mono", ui-monospace, monospace';
+      clusters.forEach(c => ctx.fillText(c.lbl, Math.min(cx(c) - 20, W - 80), c.y * H - c.s * 1.7));
     }
     ctx.globalAlpha = 1;
   }
   function loop(t) { draw(t); requestAnimationFrame(loop); }
-  resize(); readColors();
-  if (reduce) draw(0); else requestAnimationFrame(loop);
-  window.addEventListener('resize', () => { resize(); if (reduce) draw(0); });
+  function init() { resize(); readColors(); drawHelix(); if (reduce) draw(0); }
+  init();
+  if (!reduce) requestAnimationFrame(loop);
+  window.addEventListener('resize', init);
+  window.addEventListener('load', init);
   const refresh = () => { readColors(); if (reduce) draw(0); };
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
   new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
