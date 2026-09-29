@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Xi Shen</title>
+<meta name="description" content="Xi Shen, PhD student at Universidad Carlos III de Madrid. Discrete latent variables, error-correcting codes and generative models for single-cell biology.">
+<meta property="og:title" content="Xi Shen">
+<meta property="og:description" content="PhD student at UC3M working on coded binary-latent VAEs for single-cell biology.">
+<meta property="og:image" content="https://xshen-jpg.github.io/assets/portrait.jpg">
+<meta property="og:url" content="https://xshen-jpg.github.io/">
+<link rel="canonical" href="https://xshen-jpg.github.io/">
+<link rel="icon" href="assets/portrait.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: masthead with name + a live repetition-code lattice, then a ledger of sections — small-caps label column on the left, content on the right; collapses to one column on phones. */
+:root {
+  --bg: #f2f4f8;
+  --surface: #ffffff;
+  --ink: #0f1426;
+  --muted: #5a6178;
+  --faint: #8b91a6;
+  --rule: #d8dce6;
+  --dot: #d3d8e4;
+  --accent: #2f43c4;
+  --noise: #b5711a;
+  --bit-off: #e2e6ef;
+  --glow: rgba(47, 67, 196, 0.10);
+  --c3: #1b8a86;
+  --c4: #7b52c7;
+  --f-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --f-name: "Plus Jakarta Sans", "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0d19; --surface: #11152a; --ink: #e9ebf4; --muted: #9ba2ba; --faint: #6c7390;
+    --rule: #242a44; --dot: #1d2238; --accent: #9dadff; --noise: #e3a652; --bit-off: #1d2238;
+    --glow: rgba(120, 140, 255, 0.12);
+    --c3: #4fc7bf; --c4: #b596ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a0d19; --surface: #11152a; --ink: #e9ebf4; --muted: #9ba2ba; --faint: #6c7390;
+  --rule: #242a44; --dot: #1d2238; --accent: #9dadff; --noise: #e3a652; --bit-off: #1d2238;
+  --glow: rgba(120, 140, 255, 0.12);
+  --c3: #4fc7bf; --c4: #b596ff;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1200px 520px at 78% -8%, var(--glow), transparent 70%),
+    radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: auto, 22px 22px;
+  background-attachment: scroll;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .25s ease; }
+a:hover { background-size: 100% 1px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.page { max-width: 1080px; margin: 0 auto; padding-inline: 28px; }
+@media (max-width: 640px) { .page { padding-inline: 18px; } }
+
+/* top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid var(--rule); }
+.bar .page { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.mark { font-family: var(--f-display); font-size: 20px; font-weight: 400; letter-spacing: .02em; color: var(--ink); background: none; }
+.mark i { color: var(--accent); font-style: normal; }
+.nav { display: flex; gap: 22px; font-size: 13px; letter-spacing: .02em; }
+.nav a { color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+@media (max-width: 640px) { .nav { display: none; } }
+
+/* masthead */
+.hero { position: relative; overflow: hidden; }
+.cellfield { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.hero .page { position: relative; z-index: 1; }
+.helix { display: block; position: relative; z-index: 1; width: 100%; height: 60px; }
+.helix .s1 { stroke: var(--accent); stroke-opacity: .55; fill: none; stroke-width: 1.2; }
+.helix .s2 { stroke: var(--c3); stroke-opacity: .55; fill: none; stroke-width: 1.2; }
+.helix .rung { stroke: var(--rule); stroke-width: 1; }
+.helix .base { stroke: var(--rule); stroke-width: 1; }
+.mast { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; align-items: end; padding-block: 88px 48px; }
+.mast h1, .mast .tagline, .mast .affil, .mast .eyebrow { text-shadow: 0 0 18px var(--bg), 0 0 6px var(--bg); }
+@media (max-width: 860px) { .mast { grid-template-columns: minmax(0,1fr); gap: 40px; padding-block: 48px 40px; } }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+h1 { font-family: var(--f-name); font-weight: 600; font-size: clamp(3rem, 7.4vw, 5.2rem); line-height: 1; letter-spacing: -.04em; margin: 0; }
+h1 em { font-style: normal; font-weight: 600; color: var(--accent); }
+.who { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.portrait { width: 108px; height: 108px; border-radius: 20px; object-fit: cover; flex: none; border: 1px solid var(--rule); box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--rule), 0 18px 40px -18px var(--glow); }
+@media (max-width: 520px) { .portrait { width: 88px; height: 88px; border-radius: 16px; } .who { gap: 20px; } }
+.tagline { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.25rem, 2.4vw, 1.55rem); line-height: 1.4; color: var(--ink); margin: 26px 0 0; max-width: 30ch; text-wrap: balance; }
+.affil { margin: 22px 0 0; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+.contact { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 28px; font-size: 14px; }
+.contact .links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.contact .links a.todo { color: var(--faint); }
+.email { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-mono); font-size: 13px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 6px 6px 6px 14px; }
+.email code { user-select: all; }
+.email button { font: inherit; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: var(--ink); color: var(--bg); border: 0; border-radius: 999px; padding: 4px 11px; cursor: pointer; }
+
+/* code lattice figure */
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 60px -32px var(--glow); }
+.row { display: grid; grid-template-columns: 5.2em minmax(0,1fr); gap: 12px; align-items: center; }
+.row .lbl { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.cells { display: grid; gap: 4px; }
+.cells.info { grid-template-columns: repeat(8, 1fr); }
+.cells.coded { grid-template-columns: repeat(8, 1fr); gap: 4px; }
+.grp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.cell { aspect-ratio: 1; border-radius: 2px; background: var(--bit-off); transition: background .5s ease, box-shadow .3s ease; }
+.cells.info .cell { aspect-ratio: 1 / 1; }
+.grp .cell { aspect-ratio: 1 / 3; }
+.cell.on { background: var(--accent); }
+.cell.noise { box-shadow: 0 0 0 1.5px var(--noise); }
+.cap { font-family: var(--f-mono); font-size: 11px; color: var(--faint); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px dashed var(--rule); padding-top: 12px; }
+.cap b { color: var(--noise); font-weight: 500; }
+
+/* ledger */
+.ledger { display: flex; flex-direction: column; }
+.sec { display: grid; grid-template-columns: 200px minmax(0,1fr); gap: 40px; padding-block: 52px; border-bottom: 1px solid var(--rule); scroll-margin-top: 70px; }
+@media (max-width: 760px) { .sec { grid-template-columns: minmax(0,1fr); gap: 18px; padding-block: 36px; } }
+.sec > h2 { font-family: var(--f-mono); font-weight: 400; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 6px 0 0; }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 26px; }
+p { margin: 0; max-width: 66ch; }
+.lede { font-family: var(--f-display); font-weight: 300; font-size: 1.5rem; line-height: 1.45; max-width: 36ch; text-wrap: pretty; }
+.body > p + p { margin-top: -10px; color: var(--muted); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.chips li { font-size: 13px; border: 1px solid var(--rule); border-radius: 999px; padding: 4px 12px; color: var(--ink); background: var(--surface); }
+
+.entry { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 24px; }
+.entry .t { font-family: var(--f-display); font-size: 1.28rem; font-weight: 400; line-height: 1.3; }
+.entry .when { font-family: var(--f-mono); font-size: 12px; color: var(--faint); white-space: nowrap; padding-top: 5px; font-variant-numeric: tabular-nums; }
+.entry .where { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+.entry ul { grid-column: 1 / -1; margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; max-width: 70ch; }
+.entry li { position: relative; padding-left: 18px; font-size: 15px; }
+.entry li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--accent); }
+@media (max-width: 520px) { .entry { grid-template-columns: minmax(0,1fr); } .entry .when { padding-top: 0; } }
+
+.pub { display: flex; flex-direction: column; gap: 4px; }
+.pub .kind { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.pub .t { font-family: var(--f-display); font-size: 1.28rem; line-height: 1.3; }
+.pub .t a { color: var(--ink); }
+.pub .t a:hover { color: var(--accent); }
+.pub .meta { font-size: 14px; color: var(--muted); }
+.pub .meta b { color: var(--ink); font-weight: 600; }
+.pub .meta em { font-style: italic; }
+
+.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.news li { display: grid; grid-template-columns: 6.5em minmax(0,1fr); gap: 20px; padding-block: 10px; border-top: 1px dashed var(--rule); }
+.news li:first-child { border-top: 0; padding-top: 0; }
+.news time { font-family: var(--f-mono); font-size: 12px; color: var(--faint); padding-top: 3px; font-variant-numeric: tabular-nums; }
+
+.kit { display: grid; grid-template-columns: 9em minmax(0,1fr); gap: 10px 20px; font-size: 14.5px; }
+.kit dt { font-family: var(--f-mono); font-size: 12px; color: var(--faint); padding-top: 2px; }
+.kit dd { margin: 0; }
+@media (max-width: 520px) { .kit { grid-template-columns: minmax(0,1fr); gap: 2px; } .kit dd { margin-bottom: 10px; } }
+
+footer { padding-block: 36px 56px; font-family: var(--f-mono); font-size: 11.5px; color: var(--faint); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: reduce) { .cell, a { transition: none; } }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="page">
+    <a class="mark" href="#top">X<i>·</i>S</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#education">Education</a>
+      <a href="#news">News</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <canvas class="cellfield" id="cellfield" aria-hidden="true"></canvas>
+  <div class="page">
+  <section class="mast">
+    <div>
+      <div class="who">
+        <img class="portrait" src="assets/portrait.jpg" alt="Portrait of Xi Shen">
+        <div>
+          <p class="eyebrow">PhD candidate · UC3M</p>
+          <h1>Xi <em>Shen</em></h1>
+        </div>
+      </div>
+      <p class="tagline">Discrete latent variables, error-correcting codes, and generative models for single-cell biology.</p>
+      <p class="affil">Machine Learning &amp; Signal Processing Group<br>Dept. of Signal Theory and Communications, Universidad Carlos III de Madrid</p>
+      <div class="contact">
+        <span class="email"><code id="mail">xshen@ing.uc3m.es</code><button type="button" id="copyBtn">Copy</button></span>
+        <span class="links">
+          <a href="https://www.linkedin.com/in/xi-shen-ku-bioinf/">LinkedIn</a>
+          <a class="todo" href="#">Scholar</a>
+          <a href="https://github.com/xshen-jpg">GitHub</a>
+          <a class="todo" href="#">CV</a>
+        </span>
+      </div>
+    </div>
+
+    <figure class="figure" aria-label="Animated repetition code: eight information bits, each repeated three times">
+      <div class="row">
+        <span class="lbl">m ∈ {0,1}⁸</span>
+        <div class="cells info" id="info"></div>
+      </div>
+      <div class="row">
+        <span class="lbl">c = rep₃(m)</span>
+        <div class="cells coded" id="coded"></div>
+      </div>
+      <figcaption class="cap"><span>K = 8 info bits → N = 24 coded bits</span><span><b>■</b> flipped bit, fixed by majority vote</span></figcaption>
+    </figure>
+  </section>
+  </div>
+  <svg class="helix" id="helix" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"></svg>
+</div>
+
+<div class="page">
+  <main class="ledger">
+    <section class="sec" id="about">
+      <h2>About</h2>
+      <div class="body">
+        <p class="lede">I build variational autoencoders with binary latent spaces and use error-correcting codes to make their inference sharper.</p>
+        <p>I am a PhD student in Machine Learning for Precision Medicine at Universidad Carlos III de Madrid, advised by Prof. <a href="#">Pablo M. Olmos</a>. I apply coded binary bottlenecks to single-cell generative models such as scVI and MrVI, aiming for latent codes whose individual bits line up with cell lineages, states and tissue niches.</p>
+        <p>Before Madrid, I earned an MSc in Bioinformatics at the University of Copenhagen, working with Prof. Anders Krogh on generative decoders for incomplete multi-modal clinical data. My first degree was in Pharmaceutical Engineering.</p>
+        <ul class="chips">
+          <li>Discrete VAEs</li>
+          <li>Error-correcting codes</li>
+          <li>Single-cell &amp; spatial omics</li>
+          <li>Interpretable representations</li>
+          <li>Uncertainty &amp; OOD</li>
+          <li>Learning with missing data</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec" id="research">
+      <h2>Research</h2>
+      <div class="body">
+        <div class="entry">
+          <span class="t">Discrete-latent VAEs with error-correcting codes</span>
+          <span class="when">2026 – now</span>
+          <span class="where">Doctoral research, UC3M · with Pablo M. Olmos</span>
+          <ul>
+            <li>Coded VAEs replace continuous latents with binary bottlenecks protected by error-correcting codes, with a derivation of why they pay less KL at matched decoder capacity.</li>
+            <li>Binarized the latent space of scVI and MrVI and packaged the method as a standalone scvi-tools plugin, leaving the encoder and decoder untouched.</li>
+            <li>Model-agnostic evaluation on PBMC, Haniffa COVID-19 and Heart Cell Atlas: clustering agreement, per-bit AUROC, differential expression, and out-of-distribution uncertainty.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <span class="t">Stochastic training for generative decoders on incomplete multi-modal data</span>
+          <span class="when">2025</span>
+          <span class="where">MSc thesis, Center for Health Data Science, University of Copenhagen · with Anders Krogh</span>
+          <ul>
+            <li>Three feature-level stochastic training strategies for deep generative decoders on clinical, multi-omics and imaging data, improving prediction by about 5%.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <span class="t">GWAS of type 2 diabetes variants in the Greenlandic population</span>
+          <span class="when">2024</span>
+          <span class="where">Project researcher, University of Copenhagen · with Anders Albrechtsen</span>
+          <ul>
+            <li>Longitudinal and cross-sectional association analyses across five cohorts (~6,000 individuals) with linear mixed models and population-structure correction.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="publications">
+      <h2>Publications</h2>
+      <div class="body">
+        <div class="pub">
+          <span class="kind">In preparation · NeurIPS 2026 workshop</span>
+          <span class="t">Binarize Your Favorite Single-Cell Model</span>
+          <span class="meta"><b>X. Shen</b>, P. M. Olmos. <em>ML4SpatialBio workshop, NeurIPS 2026.</em></span>
+        </div>
+        <div class="pub">
+          <span class="kind">Preprint · 2025</span>
+          <span class="t"><a href="https://doi.org/10.64898/2025.12.01.690409">Enhancing Generative Decoders with Stochastic Training on Biomedical Data with Missingness</a></span>
+          <span class="meta"><b>X. Shen</b>*, A. Bjerregaard, Y. Li, A. Krogh*. <em>bioRxiv</em>, 2025. Featured at AI in Science Summit 2025.</span>
+        </div>
+        <div class="pub">
+          <span class="kind">Talk &amp; poster · 2025</span>
+          <span class="t">Enhancing the DGD with stochastic training on multi-modal biomedical features</span>
+          <span class="meta">9th Annual Danish Bioinformatics Conference · AI in Science Summit</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="education">
+      <h2>Education</h2>
+      <div class="body">
+        <div class="entry">
+          <span class="t">PhD, Machine Learning for Precision Medicine</span>
+          <span class="when">2026 – now</span>
+          <span class="where">Universidad Carlos III de Madrid, Spain</span>
+        </div>
+        <div class="entry">
+          <span class="t">MSc in Bioinformatics</span>
+          <span class="when">2023 – 2025</span>
+          <span class="where">University of Copenhagen, Denmark</span>
+        </div>
+        <div class="entry">
+          <span class="t">BSc in Pharmaceutical Engineering</span>
+          <span class="when">2019 – 2023</span>
+          <span class="where">Zhejiang University of Technology, China · Exchange at University of California, Irvine, 2022</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="news">
+      <h2>News</h2>
+      <div class="body">
+        <ul class="news">
+          <li><time datetime="2026-09">Sep 2026</time><span>Writing up our binary-bottleneck recipe for single-cell models for the NeurIPS ML4SpatialBio workshop.</span></li>
+          <li><time datetime="2026-07">Jul 2026</time><span>Started my PhD at UC3M.</span></li>
+          <li><time datetime="2025-12">Dec 2025</time><span>Preprint on stochastic training for generative decoders is out on bioRxiv.</span></li>
+          <li><time datetime="2025-09">Sep 2025</time><span>Completed my MSc in Bioinformatics at the University of Copenhagen.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec" id="toolkit">
+      <h2>Toolkit</h2>
+      <div class="body">
+        <dl class="kit">
+          <dt>Code</dt><dd>Python (PyTorch, scanpy, scvi-tools, Optuna), R, Bash, Snakemake, Git</dd>
+          <dt>Compute</dt><dd>Linux HPC with SLURM, Conda and CUDA; AWS</dd>
+          <dt>Languages</dt><dd>Chinese (native), English (fluent), Spanish (basic)</dd>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Xi Shen · Madrid</span><span>Updated September 2026</span></footer>
+</div>
+
+<script>
+(function () {
+  const K = 8, R = 3;
+  const infoEl = document.getElementById('info');
+  const codedEl = document.getElementById('coded');
+  const init = [1,0,1,1,0,0,1,0];
+  const info = [], coded = [];
+  for (let i = 0; i < K; i++) {
+    const c = document.createElement('span'); c.className = 'cell' + (init[i] ? ' on' : '');
+    infoEl.appendChild(c); info.push(c);
+    const g = document.createElement('span'); g.className = 'grp';
+    const copies = [];
+    for (let r = 0; r < R; r++) { const s = document.createElement('span'); s.className = 'cell' + (init[i] ? ' on' : ''); g.appendChild(s); copies.push(s); }
+    codedEl.appendChild(g); coded.push(copies);
+  }
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let tick = 0;
+  if (!still) setInterval(() => {
+    tick++;
+    if (tick % 3 === 0) {
+      // channel noise: flip one coded copy, then restore it (majority vote)
+      const i = Math.floor(Math.random() * K), r = Math.floor(Math.random() * R);
+      const s = coded[i][r];
+      s.classList.toggle('on'); s.classList.add('noise');
+      setTimeout(() => { s.classList.toggle('on'); s.classList.remove('noise'); }, 1300);
+    } else {
+      // new message bit propagates to its three copies
+      const i = Math.floor(Math.random() * K);
+      info[i].classList.toggle('on');
+      coded[i].forEach((s, r) => setTimeout(() => s.classList.toggle('on'), 220 + r * 140));
+    }
+  }, 1700);
+
+  const btn = document.getElementById('copyBtn');
+  const mail = document.getElementById('mail');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1600); };
+    const fallback = () => { const rg = document.createRange(); rg.selectNodeContents(mail); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(rg); btn.textContent = 'Selected'; };
+    try { navigator.clipboard.writeText(mail.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+<script>
+(function () {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  /* ---------- DNA helix band ---------- */
+  function drawHelix() {
+    const svg = document.getElementById('helix');
+    const W = 1200, H = 60, mid = 30, amp = 16, period = 120;
+    let a = '', b = '', rungs = '';
+    for (let x = 0; x <= W; x += 4) {
+      const y1 = mid + amp * Math.sin((x / period) * 2 * Math.PI);
+      const y2 = mid - amp * Math.sin((x / period) * 2 * Math.PI);
+      a += (x ? 'L' : 'M') + x + ' ' + y1.toFixed(1);
+      b += (x ? 'L' : 'M') + x + ' ' + y2.toFixed(1);
+    }
+    for (let x = period / 8; x < W; x += period / 4) {
+      const y1 = mid + amp * Math.sin((x / period) * 2 * Math.PI);
+      const y2 = mid - amp * Math.sin((x / period) * 2 * Math.PI);
+      rungs += '<line class="rung" x1="' + x + '" y1="' + y1.toFixed(1) + '" x2="' + x + '" y2="' + y2.toFixed(1) + '"/>';
+    }
+    svg.innerHTML = '<line class="base" x1="0" y1="59.5" x2="1200" y2="59.5"/>' + rungs +
+      '<path class="s1" d="' + a + '"/><path class="s2" d="' + b + '"/>';
+  }
+  drawHelix();
+
+  /* ---------- single-cell latent space (UMAP-like) ---------- */
+  const cv = document.getElementById('cellfield');
+  const ctx = cv.getContext('2d');
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+
+  // cluster centres in unit coords; kept mostly right and low so the name stays clear
+  const clusters = [
+    { x: .62, y: .20, sx: .045, sy: .06, n: 70, col: '--accent', lbl: 'CD4 T' },
+    { x: .72, y: .30, sx: .04,  sy: .04, n: 55, col: '--accent', lbl: 'CD8 T' },
+    { x: .90, y: .18, sx: .035, sy: .05, n: 45, col: '--c3',     lbl: 'B' },
+    { x: .95, y: .58, sx: .03,  sy: .07, n: 55, col: '--c4',     lbl: 'CD14 Mono' },
+    { x: .84, y: .86, sx: .04,  sy: .035,n: 35, col: '--c4',     lbl: 'FCGR3A Mono' },
+    { x: .56, y: .90, sx: .035, sy: .03, n: 30, col: '--c3',     lbl: 'NK' },
+    { x: .08, y: .88, sx: .04,  sy: .03, n: 30, col: '--noise',  lbl: 'DC' },
+    { x: .30, y: .97, sx: .03,  sy: .02, n: 18, col: '--faint',  lbl: 'Platelet' }
+  ];
+  const pts = [];
+  clusters.forEach((c, ci) => {
+    for (let i = 0; i < c.n; i++) pts.push({ ci, ux: c.x + gauss() * c.sx, uy: c.y + gauss() * c.sy, ph: rnd() * 6.28, r: 1 + rnd() * 1.4 });
+  });
+  // sparse kNN edges within each cluster
+  const edges = [];
+  clusters.forEach((c, ci) => {
+    const mine = pts.map((p, i) => [p, i]).filter(([p]) => p.ci === ci);
+    mine.forEach(([p, i], k) => {
+      if (k % 3) return;
+      let best = -1, bd = 1e9;
+      mine.forEach(([q, j]) => { if (j === i) return; const d = (p.ux - q.ux) ** 2 + (p.uy - q.uy) ** 2; if (d < bd) { bd = d; best = j; } });
+      if (best >= 0) edges.push([i, best]);
+    });
+  });
+
+  let W = 0, H = 0, colors = {};
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function readColors() {
+    colors = {};
+    ['--accent', '--c3', '--c4', '--noise', '--faint', '--rule', '--muted'].forEach(k => colors[k] = css(k));
+  }
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    const narrow = W < 700;
+    const pos = (p) => {
+      const dx = reduce ? 0 : Math.sin(t / 2400 + p.ph) * 2.2;
+      const dy = reduce ? 0 : Math.cos(t / 2900 + p.ph) * 2.2;
+      return [p.ux * W + dx, p.uy * H + dy];
+    };
+    ctx.lineWidth = 0.6;
+    ctx.globalAlpha = narrow ? .18 : .28;
+    edges.forEach(([i, j]) => {
+      const a = pts[i], b = pts[j];
+      const [x1, y1] = pos(a), [x2, y2] = pos(b);
+      ctx.strokeStyle = colors[clusters[a.ci].col];
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    });
+    ctx.globalAlpha = narrow ? .28 : .45;
+    pts.forEach(p => {
+      const [x, y] = pos(p);
+      ctx.fillStyle = colors[clusters[p.ci].col];
+      ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.2832); ctx.fill();
+    });
+    if (!narrow) {
+      ctx.globalAlpha = .75;
+      ctx.fillStyle = colors['--muted'];
+      ctx.font = '10px "JetBrains Mono", ui-monospace, monospace';
+      clusters.forEach(c => {
+        const x = Math.min(c.x * W + c.sx * W * 1.6, W - 90);
+        ctx.fillText(c.lbl, x, c.y * H - c.sy * H * 1.2);
+      });
+      ctx.fillStyle = colors['--faint'];
+      ctx.fillText('UMAP 1 →', W - 96, H - 10);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function loop(t) { draw(t); requestAnimationFrame(loop); }
+  resize(); readColors();
+  if (reduce) draw(0); else requestAnimationFrame(loop);
+  window.addEventListener('resize', () => { resize(); if (reduce) draw(0); });
+  const refresh = () => { readColors(); if (reduce) draw(0); };
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
+  new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
+</body>
+</html>
